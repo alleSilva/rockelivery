@@ -1,6 +1,5 @@
 defmodule RockeliveryWeb.ErrorView do
   use RockeliveryWeb, :view
-  import Ecto.Changeset
   alias Ecto.Changeset
 
   def template_not_found(template, _assigns) do
@@ -11,13 +10,11 @@ defmodule RockeliveryWeb.ErrorView do
     %{message: translate_errors(changeset)}
   end
   
-  def render("error.json", result), do: %{message: result}
+  def render("error.json", %{result: result}), do: %{message: result}
 
   defp translate_errors(changeset) do
-    traverse_errors(changeset, fn {msg, opts} ->
+    Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
   Enum.reduce(opts, msg, fn {key, value}, acc ->
-    String.replace(acc, "%{#{key}}", to_string(value))
-  end)
-end)
+    String.replace(acc, "%{#{key}}", to_string(value))end)end)
   end
 end

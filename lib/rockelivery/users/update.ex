@@ -1,18 +1,18 @@
 defmodule Rockelivery.Users.Update do
   alias Ecto.UUID
-  alias Rockelivery.Repo
+  alias Rockelivery.{Error, Repo}
   alias Rockelivery.Users.User
 
   def call(%{"id" => id} = params) do
     case UUID.cast(id) do
-      :error -> {:error, %{status: :bad_request, result: "invalid id format"}}
+      :error -> {:error, Error.build(:bad_request, "invalid id format")}
       {:ok, _id} -> update(params)
     end
   end
 
   defp update(%{"id" => id} = params) do
     case Repo.get(User, id) do
-      nil -> {:error, %{status: :not_found, result: "user not found"}}
+      nil -> {:error, Error.build(:not_found, "user not found")}
       user -> do_update(user, params)
     end
   end
