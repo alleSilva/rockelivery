@@ -1,15 +1,15 @@
-defmodule Rockelivery.Users.Create do
+defmodule Rockelivery.Items.Create do
   alias Rockelivery.{Error, Repo}
-  alias Rockelivery.Users.User
+  alias Rockelivery.Items.Item
 
   def call(params) do
     params
-    |> User.changeset()
+    |> Item.changeset()
     |> Repo.insert()
     |> handle_insert()
   end
 
-  defp handle_insert({:ok, %User{} = result}), do: {:ok, result}
+  defp handle_insert({:ok, %Item{} = result}), do: {:ok, result}
 
   defp handle_insert({:error, result}) do
     {:error, Error.build(:bad_request, result)}
