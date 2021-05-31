@@ -2,7 +2,7 @@ defmodule RockeliveryWeb.ItemsController do
   use RockeliveryWeb, :controller
   alias RockeliveryWeb.FallbackController
   alias Rockelivery.Items.Item
-  
+
   action_fallback FallbackController
 
   def create(conn, params) do
@@ -18,7 +18,7 @@ defmodule RockeliveryWeb.ItemsController do
       conn
       |> put_status(:ok)
       |> render("show.json", item: item)
-      end
+    end
   end
 
   def delete(conn, %{"id" => id}) do
@@ -26,7 +26,7 @@ defmodule RockeliveryWeb.ItemsController do
       conn
       |> put_status(:no_content)
       |> text("")
-      end
+    end
   end
 
   def update(conn, params) do
@@ -34,6 +34,6 @@ defmodule RockeliveryWeb.ItemsController do
       conn
       |> put_status(:ok)
       |> render("show.json", item: item)
-      end
+    end
   end
 end

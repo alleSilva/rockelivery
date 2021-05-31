@@ -2,8 +2,9 @@ defmodule RockeliveryWeb.UsersController do
   use RockeliveryWeb, :controller
   alias RockeliveryWeb.FallbackController
   alias Rockelivery.Users.User
-  
+
   action_fallback FallbackController
+
   def create(conn, params) do
     with {:ok, %User{} = user} <- Rockelivery.create_user(params) do
       conn
@@ -17,7 +18,7 @@ defmodule RockeliveryWeb.UsersController do
       conn
       |> put_status(:ok)
       |> render("show.json", user: user)
-      end
+    end
   end
 
   def delete(conn, %{"id" => id}) do
@@ -25,7 +26,7 @@ defmodule RockeliveryWeb.UsersController do
       conn
       |> put_status(:no_content)
       |> text("")
-      end
+    end
   end
 
   def update(conn, params) do
@@ -33,6 +34,6 @@ defmodule RockeliveryWeb.UsersController do
       conn
       |> put_status(:ok)
       |> render("show.json", user: user)
-      end
+    end
   end
 end

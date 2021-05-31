@@ -18,18 +18,21 @@ defmodule Rockelivery.Users.UserTest do
 
       changeset = User.changeset(user_params)
       update_user_params = %{name: "Biro Liro", password: "123456"}
-      response = change(changeset, update_user_params )
+      response = change(changeset, update_user_params)
 
-
-
-      assert %Changeset{changes: %{name: "Biro Liro", password: "123456"}, valid?: true} = response
+      assert %Changeset{changes: %{name: "Biro Liro", password: "123456"}, valid?: true} =
+               response
     end
 
     test "when there are some errors, returns a invalid changeset" do
       user_params = build(:user_params, %{age: 15, password: "123"})
 
       response = User.changeset(user_params)
-      expected_response = %{age: ["must be greater than or equal to 18"], password: ["should be at least 6 character(s)"]}
+
+      expected_response = %{
+        age: ["must be greater than or equal to 18"],
+        password: ["should be at least 6 character(s)"]
+      }
 
       assert errors_on(response) == expected_response
     end

@@ -9,13 +9,13 @@ defmodule RockeliveryWeb.ErrorView do
   def render("error.json", %{result: %Changeset{} = changeset}) do
     %{message: translate_errors(changeset)}
   end
-  
+
   def render("error.json", %{result: result}), do: %{message: result}
 
   defp translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
-  Enum.reduce(opts, msg, fn {key, value}, acc ->
-    String.replace(acc, "%{#{key}}", translate_value(value))
+      Enum.reduce(opts, msg, fn {key, value}, acc ->
+        String.replace(acc, "%{#{key}}", translate_value(value))
       end)
     end)
   end
